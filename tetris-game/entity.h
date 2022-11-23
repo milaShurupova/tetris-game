@@ -1,16 +1,12 @@
 #pragma once
-#include "main.h"
 
-#define MAX_LOADSTRING 100
+#ifndef FALSE
+#define FALSE               0
+#endif
 
-HINSTANCE hInst;
-WCHAR szTitle[MAX_LOADSTRING];
-WCHAR szWindowClass[MAX_LOADSTRING];
-HWND hScore;
-
-ATOM                MyRegisterClass(HINSTANCE hInstance);
-BOOL                InitInstance(HINSTANCE, int);
-LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
+#ifndef TRUE
+#define TRUE                1
+#endif
 
 #define INDENT_IN_PIXELS				(20)
 #define SUPPORT_FIELD_WIDTH_IN_PIXEL	(350)
@@ -25,6 +21,11 @@ LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 
 #define ID_BUTTON_START		(500)
 #define ID_BUTTON_SCORE		(600)
+
+#define SPEED	(700)
+
+typedef unsigned int UINT;
+typedef int BOOL;
 
 enum gameStatus
 {

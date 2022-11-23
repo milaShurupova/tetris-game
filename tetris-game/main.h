@@ -2,10 +2,7 @@
 
 #include "framework.h"
 #include "tetris-game.h"
-#include "helpers.h"
-#include "entity.h"
-#include "draw.h"
-#include "tetromino.h"
+
 
 #define MAX_LOADSTRING 100
 

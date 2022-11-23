@@ -1,15 +1,13 @@
+#include <windows.h>
+#include <stdio.h>
+#include "entity.h"
 #include "helpers.h"
 
 extern enum gameStatus currentGameStatus;
 extern Tetromino currentTetromino;
 extern int score;
-extern UINT speed;
 
 extern int playField[PLAY_FIELD_HEIGHT_IN_BLOCKS][PLAY_FIELD_WIDTH_IN_BLOCKS];
-
-//extern int tetrominos[TETROMINO_TYPES][TETROMINO_HEIGHT][TETROMINO_WIDTH];
-
-
 
 void updateScore(int score, HWND hScore)
 {
@@ -24,7 +22,7 @@ void initializeGame(HWND hWnd)
     currentGameStatus = PLAYING;
     score = 0;
     srand((unsigned)time(NULL));
-    SetTimer(hWnd, speed, speed, NULL);
+    SetTimer(hWnd, SPEED, SPEED, NULL);
 
     for (i = 1; i < (PLAY_FIELD_HEIGHT_IN_BLOCKS - 1); i++)
     {
