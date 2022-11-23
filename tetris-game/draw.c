@@ -1,6 +1,5 @@
 #include "draw.h"
 
-extern int score;
 extern enum gameStatus currentGameStatus;
 extern int playField[PLAY_FIELD_HEIGHT_IN_BLOCKS][PLAY_FIELD_WIDTH_IN_BLOCKS];
 
