@@ -7,6 +7,7 @@ UINT speed = 700;
 
 int playField[PLAY_FIELD_HEIGHT_IN_BLOCKS][PLAY_FIELD_WIDTH_IN_BLOCKS];
 
+// move to tetromino.c or tetromino.h
 int tetrominos[TETROMINO_TYPES][TETROMINO_HEIGHT][TETROMINO_WIDTH] =
 {
     {
