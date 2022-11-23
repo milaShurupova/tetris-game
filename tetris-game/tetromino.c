@@ -1,11 +1,57 @@
+#include "entity.h"
 #include "tetromino.h"
 
+int playField[PLAY_FIELD_HEIGHT_IN_BLOCKS][PLAY_FIELD_WIDTH_IN_BLOCKS];
+
 extern int score;
-extern UINT speed;
 extern enum gameStatus currentGameStatus;
-extern int playField[PLAY_FIELD_HEIGHT_IN_BLOCKS][PLAY_FIELD_WIDTH_IN_BLOCKS];
-extern int tetrominos[TETROMINO_TYPES][TETROMINO_HEIGHT][TETROMINO_WIDTH];
 extern Tetromino currentTetromino;
+
+int tetrominos[TETROMINO_TYPES][TETROMINO_HEIGHT][TETROMINO_WIDTH] =
+{
+	{
+		{1,1,0,0},
+		{1,1,0,0},
+		{0,0,0,0},
+		{0,0,0,0}
+	},
+	{
+		{1,0,0,0},
+		{1,0,0,0},
+		{1,0,0,0},
+		{1,0,0,0}
+	},
+	{
+		{0,1,1,0},
+		{1,1,0,0},
+		{0,0,0,0},
+		{0,0,0,0}
+	},
+	{
+		{1,1,0,0},
+		{0,1,1,0},
+		{0,0,0,0},
+		{0,0,0,0}
+	},
+	{
+		{1,1,0,0},
+		{0,1,0,0},
+		{0,1,0,0},
+		{0,0,0,0}
+	},
+	{
+		{1,1,0,0},
+		{1,0,0,0},
+		{1,0,0,0},
+		{0,0,0,0}
+	},
+	{
+		{0,1,0,0},
+		{1,1,1,0},
+		{0,0,0,0},
+		{0,0,0,0}
+	}
+};
 
 void innerStopTetromino(Tetromino t, int x, int y) {
 

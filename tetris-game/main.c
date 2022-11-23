@@ -1,62 +1,12 @@
 #include "main.h"
+#include "entity.h"
+#include "helpers.h"
+#include "draw.h"
+#include "tetromino.h"
 
 enum gameStatus currentGameStatus;
 Tetromino currentTetromino;
 int score;
-UINT speed = 700;
-
-int playField[PLAY_FIELD_HEIGHT_IN_BLOCKS][PLAY_FIELD_WIDTH_IN_BLOCKS];
-
-// move to tetromino.c or tetromino.h
-int tetrominos[TETROMINO_TYPES][TETROMINO_HEIGHT][TETROMINO_WIDTH] =
-{
-    {
-        {1,1,0,0},
-        {1,1,0,0},
-        {0,0,0,0},
-        {0,0,0,0}
-    },
-    {
-        {1,0,0,0},
-        {1,0,0,0},
-        {1,0,0,0},
-        {1,0,0,0}
-    },
-    {
-        {0,1,1,0},
-        {1,1,0,0},
-        {0,0,0,0},
-        {0,0,0,0}
-    },
-    {
-        {1,1,0,0},
-        {0,1,1,0},
-        {0,0,0,0},
-        {0,0,0,0}
-    },
-    {
-        {1,1,0,0},
-        {0,1,0,0},
-        {0,1,0,0},
-        {0,0,0,0}
-    },
-    {
-        {1,1,0,0},
-        {1,0,0,0},
-        {1,0,0,0},
-        {0,0,0,0}
-    },
-    {
-        {0,1,0,0},
-        {1,1,1,0},
-        {0,0,0,0},
-        {0,0,0,0}
-    }
-};
-
-
-
-
 
 BOOL keyProc(HWND hWnd, WPARAM wParam)
 {
@@ -106,6 +56,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     LoadStringW(hInstance, IDC_TETRISGAME, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance);
 
+    initializateDrawCoordinates();
+
     if (!InitInstance(hInstance, nCmdShow))
     {
         return FALSE;
@@ -152,6 +104,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
     hInst = hInstance;
+
     int wndWight = (BLOCK_SIZE_IN_PIXEL * PLAY_FIELD_WIDTH_IN_BLOCKS) + (INDENT_IN_PIXELS * 2) + SUPPORT_FIELD_WIDTH_IN_PIXEL;
     int wndHeight = (BLOCK_SIZE_IN_PIXEL * PLAY_FIELD_HEIGHT_IN_BLOCKS) + (INDENT_IN_PIXELS * 4);
 
@@ -208,7 +161,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             updateScore(score, hScore);
             break;
         case GAME_OVER:
-            KillTimer(hWnd, speed);
+            KillTimer(hWnd, SPEED);
             int ret = MessageBoxW(hWnd, L"Game Over! Do you want to play again?", L"Message", MB_YESNO);
             switch (ret)
             {
@@ -234,12 +187,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         switch (wParam)
         {
         case SIZE_MINIMIZED:
-            KillTimer(hWnd, speed);
+            KillTimer(hWnd, SPEED);
             break;
         case SIZE_RESTORED:
             if (currentGameStatus == PLAYING)
             {
-                SetTimer(hWnd, speed, speed, NULL);
+                SetTimer(hWnd, SPEED, SPEED, NULL);
             }
             break;
         }
