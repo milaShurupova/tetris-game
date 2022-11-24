@@ -3,24 +3,21 @@
 #include "entity.h"
 #include "helpers.h"
 
-extern enum gameStatus currentGameStatus;
 extern Tetromino currentTetromino;
-extern int score;
-
 extern int playField[PLAY_FIELD_HEIGHT_IN_BLOCKS][PLAY_FIELD_WIDTH_IN_BLOCKS];
 
-void updateScore(int score, HWND hScore)
+void updateScore(int* score, HWND hScore)
 {
     wchar_t scoreString[15];
-    swprintf_s(scoreString, 15, L"Score: %d", score);
+    swprintf_s(scoreString, 15, L"Score: %d", *score);
     SetWindowTextW(hScore, scoreString);
 }
 
-void initializeGame(HWND hWnd)
+void initializeGame(GameStatus* currentGameStatus, int* score, HWND hWnd)
 {
     int i, j;
-    currentGameStatus = PLAYING;
-    score = 0;
+    *currentGameStatus = PLAYING;
+    *score = 0;
     srand((unsigned)time(NULL));
     SetTimer(hWnd, SPEED, SPEED, NULL);
 

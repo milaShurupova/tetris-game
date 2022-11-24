@@ -3,8 +3,6 @@
 
 int playField[PLAY_FIELD_HEIGHT_IN_BLOCKS][PLAY_FIELD_WIDTH_IN_BLOCKS];
 
-extern int score;
-extern enum gameStatus currentGameStatus;
 extern Tetromino currentTetromino;
 
 int tetrominos[TETROMINO_TYPES][TETROMINO_HEIGHT][TETROMINO_WIDTH] =
@@ -259,16 +257,16 @@ int eraseLines()
 }
 
 
-BOOL downTetromino()
+BOOL downTetromino(GameStatus* currentGameStatus, int* score)
 {
 	if (moveTetromino(currentTetromino, MOVE_TO_DOWN) == FALSE)
 	{
 		stopTetromino(currentTetromino);
-		score += eraseLines();
+		*score += eraseLines();
 
 		if (createTetromino(PLAY_FIELD_WIDTH_IN_BLOCKS / 2, 0, rand() % TETROMINO_TYPES) == FALSE)
 		{
-			currentGameStatus = GAME_OVER;
+			*currentGameStatus = GAME_OVER;
 		}
 		return FALSE;
 	}
