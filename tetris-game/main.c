@@ -4,7 +4,7 @@
 #include "draw.h"
 #include "tetromino.h"
 
-enum gameStatus currentGameStatus;
+GameStatus currentGameStatus;
 Tetromino currentTetromino;
 int score;
 
@@ -24,7 +24,7 @@ BOOL keyProc(HWND hWnd, WPARAM wParam)
         moveTetromino(currentTetromino, MOVE_TO_LEFT);
         break;
     case VK_DOWN:
-        downTetromino(currentTetromino);
+        downTetromino(&currentGameStatus, &score);
         break;
     case VK_UP:
         rotateTetromino(currentTetromino, CLOCKWISE);
@@ -137,7 +137,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_COMMAND:
         if (LOWORD(wParam) == ID_BUTTON_START)
         {
-            initializeGame(hWnd);
+            initializeGame(&currentGameStatus, &score, hWnd);
             SetFocus(hWnd);
         }
         break;
@@ -157,8 +157,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         switch (currentGameStatus)
         {
         case PLAYING:
-            downTetromino();
-            updateScore(score, hScore);
+            downTetromino(&currentGameStatus, &score);
+            updateScore(&score, hScore);
             break;
         case GAME_OVER:
             KillTimer(hWnd, SPEED);

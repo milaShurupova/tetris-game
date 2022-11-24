@@ -27,12 +27,6 @@
 typedef unsigned int UINT;
 typedef int BOOL;
 
-enum gameStatus
-{
-	PLAYING,
-	GAME_OVER
-};
-
 enum blockType
 {
 	EMPTY_BLOCK,
@@ -48,6 +42,13 @@ typedef struct _Tetromino
 	int type;
 	int tetromino[TETROMINO_HEIGHT][TETROMINO_WIDTH];
 } Tetromino;
+
+
+typedef enum _GameStatus
+{
+	PLAYING,
+	GAME_OVER
+} GameStatus;
 
 typedef enum _MoveType
 {
