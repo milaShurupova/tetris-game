@@ -51,15 +51,15 @@ int tetrominos[TETROMINO_TYPES][TETROMINO_HEIGHT][TETROMINO_WIDTH] =
 	}
 };
 
-void innerStopTetromino(Tetromino t, int x, int y) {
+void innerStopTetromino(Tetromino* t, int x, int y) {
 
-	if (playField[t.y + y][t.x + x] == MOVING_BLOCK)
+	if (playField[t->y + y][t->x + x] == MOVING_BLOCK)
 	{
-		playField[t.y + y][t.x + x] = STAYING_BLOCK;
+		playField[t->y + y][t->x + x] = STAYING_BLOCK;
 	}
 }
 
-void forFunction(int y1, int y2, int x1, int x2, Tetromino t, void (*innerFunction)(Tetromino, int, int))
+void forFunction(int y1, int y2, int x1, int x2, Tetromino* t, void (*innerFunction)(Tetromino*, int, int))
 {
 
 	int x, y;
@@ -74,7 +74,7 @@ void forFunction(int y1, int y2, int x1, int x2, Tetromino t, void (*innerFuncti
 }
 
 
-void stopTetromino(Tetromino t)
+void stopTetromino(Tetromino* t)
 {
 
 	forFunction(0, TETROMINO_HEIGHT, 0, TETROMINO_WIDTH, t, innerStopTetromino);
@@ -82,15 +82,16 @@ void stopTetromino(Tetromino t)
 }
 
 
-BOOL noCollisionCheck(Tetromino t, int x, int y)
+BOOL noCollisionCheck(Tetromino* t, int x, int y)
 {
 	int i, j;
+
 	for (i = 0; i < TETROMINO_HEIGHT; i++)
 	{
 		for (j = 0; j < TETROMINO_WIDTH; j++)
 		{
 
-			if (t.tetromino[i][j] == 0)
+			if (t->tetromino[i][j] == 0)
 			{
 				continue;
 			}
@@ -107,17 +108,17 @@ BOOL noCollisionCheck(Tetromino t, int x, int y)
 	return TRUE;
 }
 
-void innerPlaceTetromino(Tetromino t, int x, int y) {
+void innerPlaceTetromino(Tetromino* t, int x, int y) {
 
-	if (t.tetromino[y][x] == MOVING_BLOCK) 
+	if (t->tetromino[y][x] == MOVING_BLOCK) 
 	{
-		playField[t.y + y][t.x + x] = MOVING_BLOCK;
+		playField[t->y + y][t->x + x] = MOVING_BLOCK;
 	}
 }
 
-BOOL placeTetromino(Tetromino t)
+BOOL placeTetromino(Tetromino* t)
 {
-	if (noCollisionCheck(t, t.x, t.y) == FALSE)
+	if (noCollisionCheck(t, t->x, t->y) == FALSE)
 	{
 		return FALSE;
 	}
@@ -127,16 +128,16 @@ BOOL placeTetromino(Tetromino t)
 	return TRUE;
 }
 
-void innerRemoveTetromino(Tetromino t, int x, int y) {
+void innerRemoveTetromino(Tetromino* t, int x, int y) {
 
-	if (playField[t.y + y][t.x + x] == MOVING_BLOCK)
+	if (playField[t->y + y][t->x + x] == MOVING_BLOCK)
 	{
-		playField[t.y + y][t.x + x] = EMPTY_BLOCK;
+		playField[t->y + y][t->x + x] = EMPTY_BLOCK;
 	}
 }
 
 
-void removeTetromino(Tetromino t)
+void removeTetromino(Tetromino* t)
 {
 	forFunction(0, TETROMINO_HEIGHT, 0, TETROMINO_WIDTH, t, innerRemoveTetromino);
 }
@@ -147,7 +148,7 @@ void removeTetromino(Tetromino t)
 //}
 
 
-BOOL createTetromino(int x, int y, int type)
+BOOL createTetromino(Tetromino* currentTetromino, int x, int y, int type)
 {
 	int i, j;
 	Tetromino t;
@@ -166,9 +167,9 @@ BOOL createTetromino(int x, int y, int type)
 		}
 	}
 
-	currentTetromino = t;
+	*currentTetromino = t;
 
-	if (noCollisionCheck(t, x, y) == FALSE)
+	if (noCollisionCheck(&t, x, y) == FALSE)
 	{
 		return FALSE;
 	}
@@ -178,9 +179,9 @@ BOOL createTetromino(int x, int y, int type)
 }
 
 
-BOOL moveTetromino(Tetromino t, MoveType type)
+BOOL moveTetromino(Tetromino* currentTetromino, MoveType type)
 {
-	Tetromino next_t = t;
+	Tetromino next_t = *currentTetromino;
 	switch (type)
 	{
 	case MOVE_TO_LEFT:
@@ -194,15 +195,15 @@ BOOL moveTetromino(Tetromino t, MoveType type)
 		break;
 	}
 
-	removeTetromino(t);
+	removeTetromino(currentTetromino);
 
-	if (placeTetromino(next_t) == FALSE)
+	if (placeTetromino(&next_t) == FALSE)
 	{
-		placeTetromino(t);
+		placeTetromino(currentTetromino);
 		return FALSE;
 	}
 
-	currentTetromino = next_t;
+	*currentTetromino = next_t;
 	return TRUE;
 }
 
@@ -257,14 +258,14 @@ int eraseLines()
 }
 
 
-BOOL downTetromino(GameStatus* currentGameStatus, int* score)
+BOOL downTetromino(Tetromino* currentTetromino, GameStatus* currentGameStatus, int* score)
 {
 	if (moveTetromino(currentTetromino, MOVE_TO_DOWN) == FALSE)
 	{
 		stopTetromino(currentTetromino);
 		*score += eraseLines();
 
-		if (createTetromino(PLAY_FIELD_WIDTH_IN_BLOCKS / 2, 0, rand() % TETROMINO_TYPES) == FALSE)
+		if (createTetromino(currentTetromino, PLAY_FIELD_WIDTH_IN_BLOCKS / 2, 0, rand() % TETROMINO_TYPES) == FALSE)
 		{
 			*currentGameStatus = GAME_OVER;
 		}
@@ -274,10 +275,10 @@ BOOL downTetromino(GameStatus* currentGameStatus, int* score)
 }
 
 
-BOOL rotateTetromino(Tetromino t, RotateType type)
+BOOL rotateTetromino(Tetromino* t, RotateType type)
 {
 	int i, j;
-	Tetromino next_t = t;
+	Tetromino next_t = *t;
 
 	if (type == CLOCKWISE)
 	{
@@ -285,7 +286,7 @@ BOOL rotateTetromino(Tetromino t, RotateType type)
 		{
 			for (j = 0; j < TETROMINO_WIDTH; j++)
 			{
-				next_t.tetromino[i][j] = t.tetromino[TETROMINO_HEIGHT - 1 - j][i];
+				next_t.tetromino[i][j] = t->tetromino[TETROMINO_HEIGHT - 1 - j][i];
 			}
 		}
 	}
@@ -295,14 +296,14 @@ BOOL rotateTetromino(Tetromino t, RotateType type)
 		{
 			for (j = 0; j < TETROMINO_WIDTH; j++)
 			{
-				next_t.tetromino[i][j] = t.tetromino[j][TETROMINO_WIDTH - 1 - i];
+				next_t.tetromino[i][j] = t->tetromino[j][TETROMINO_WIDTH - 1 - i];
 			}
 		}
 	}
 
 	removeTetromino(t);
 
-	if (placeTetromino(next_t) == FALSE)
+	if (placeTetromino(&next_t) == FALSE)
 	{
 		placeTetromino(t);
 		return FALSE;
