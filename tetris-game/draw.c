@@ -2,8 +2,19 @@
 #include "entity.h"
 #include "draw.h"
 
-
 extern int playField[PLAY_FIELD_HEIGHT_IN_BLOCKS][PLAY_FIELD_WIDTH_IN_BLOCKS];
+
+typedef struct _DrawCoordinates
+{
+	int xBackground;
+	int yBackground;
+	int xScoreField;
+	int xFieldBoundary;
+	int yFieldBoundary;
+	int xBuffer;
+	int yBuffer;
+} DrawCoordinates;
+
 DrawCoordinates drawCoordinates;
 
 void initializateDrawCoordinates() 
