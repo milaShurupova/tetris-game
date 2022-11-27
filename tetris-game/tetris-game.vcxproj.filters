@@ -39,7 +39,10 @@
     <ClInclude Include="tetromino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="helpers.h">
+    <ClInclude Include="game-helper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tetromino-helper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,7 +56,10 @@
     <ClCompile Include="draw.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="helpers.c">
+    <ClCompile Include="game-helper.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tetromino-helper.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

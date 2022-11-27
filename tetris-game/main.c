@@ -1,48 +1,12 @@
 #include "main.h"
 #include "entity.h"
-#include "helpers.h"
+#include "game-helper.h"
 #include "draw.h"
 #include "tetromino.h"
 
 GameStatus currentGameStatus = GAME_OVER;
 Tetromino currentTetromino;
 int score;
-
-BOOL keyProc(HWND hWnd, WPARAM wParam)
-{
-    if (currentGameStatus == GAME_OVER)
-    {
-        return FALSE;
-    }
-
-    switch (wParam)
-    {
-    case VK_RIGHT:
-        moveTetromino(&currentTetromino, MOVE_TO_RIGHT);
-        break;
-    case VK_LEFT:
-        moveTetromino(&currentTetromino, MOVE_TO_LEFT);
-        break;
-    case VK_DOWN:
-        downTetromino(&currentTetromino, &currentGameStatus, &score);
-        break;
-    case VK_UP:
-        rotateTetromino(&currentTetromino, CLOCKWISE);
-        break;
-    case VK_SPACE:
-        rotateTetromino(&currentTetromino, COUNTER_CLOCKWISE);
-        break;
-    case VK_ESCAPE:
-    {
-        int ret = MessageBoxW(hWnd, L"Are you sure to quit?", L"Message", MB_OKCANCEL);
-        if (ret == IDOK)
-        {
-            SendMessage(hWnd, WM_CLOSE, 0, 0);
-        }
-    }
-    }
-    return TRUE;
-}
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
@@ -201,4 +165,40 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
     return 0;
+}
+
+BOOL keyProc(HWND hWnd, WPARAM wParam)
+{
+    if (currentGameStatus == GAME_OVER)
+    {
+        return FALSE;
+    }
+
+    switch (wParam)
+    {
+    case VK_RIGHT:
+        moveTetromino(&currentTetromino, MOVE_TO_RIGHT);
+        break;
+    case VK_LEFT:
+        moveTetromino(&currentTetromino, MOVE_TO_LEFT);
+        break;
+    case VK_DOWN:
+        downTetromino(&currentTetromino, &currentGameStatus, &score);
+        break;
+    case VK_UP:
+        rotateTetromino(&currentTetromino, CLOCKWISE);
+        break;
+    case VK_SPACE:
+        rotateTetromino(&currentTetromino, COUNTER_CLOCKWISE);
+        break;
+    case VK_ESCAPE:
+    {
+        int ret = MessageBoxW(hWnd, L"Are you sure to quit?", L"Message", MB_OKCANCEL);
+        if (ret == IDOK)
+        {
+            SendMessage(hWnd, WM_CLOSE, 0, 0);
+        }
+    }
+    }
+    return TRUE;
 }
