@@ -1,7 +1,7 @@
 #include "entity.h"
 #include "tetromino-helper.h"
 
-int playField[PLAY_FIELD_HEIGHT_IN_BLOCKS][PLAY_FIELD_WIDTH_IN_BLOCKS];
+extern int playField[PLAY_FIELD_HEIGHT_IN_BLOCKS][PLAY_FIELD_WIDTH_IN_BLOCKS];
 
 
 void forFunction(int y1, int y2, int x1, int x2, Tetromino* t, void (*innerFunction)(Tetromino*, int, int))
@@ -70,7 +70,6 @@ void removeTetromino(Tetromino* t)
 BOOL noCollisionCheck(Tetromino* t, int x, int y)
 {
 	int i, j;
-
 	for (i = 0; i < TETROMINO_HEIGHT; i++)
 	{
 		for (j = 0; j < TETROMINO_WIDTH; j++)
@@ -128,7 +127,6 @@ int eraseLines()
 {
 	int result = 0;
 	int i;
-
 	for (i = 1; i < (PLAY_FIELD_HEIGHT_IN_BLOCKS - 1); i++)
 	{
 		if (isFullLine(i) == TRUE)

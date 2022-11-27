@@ -2,8 +2,9 @@
 #include <stdio.h>
 #include "entity.h"
 #include "game-helper.h"
+#include "tetromino.h"
 
-extern int playField[PLAY_FIELD_HEIGHT_IN_BLOCKS][PLAY_FIELD_WIDTH_IN_BLOCKS];
+int playField[PLAY_FIELD_HEIGHT_IN_BLOCKS][PLAY_FIELD_WIDTH_IN_BLOCKS];
 
 void updateScore(int* score, HWND hScore)
 {

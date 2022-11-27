@@ -47,7 +47,6 @@ typedef struct _Tetromino
 	int tetromino[TETROMINO_HEIGHT][TETROMINO_WIDTH];
 } Tetromino;
 
-
 typedef enum _GameStatus
 {
 	PLAYING,
