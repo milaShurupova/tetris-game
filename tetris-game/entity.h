@@ -8,6 +8,10 @@
 #define TRUE                1
 #endif
 
+#ifndef NULL
+#define NULL ((void *)0)
+#endif
+
 #define INDENT_IN_PIXELS				(20)
 #define SUPPORT_FIELD_WIDTH_IN_PIXEL	(350)
 #define BLOCK_SIZE_IN_PIXEL				(25)
