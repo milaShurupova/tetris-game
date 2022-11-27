@@ -21,9 +21,9 @@ void initializeGame(Tetromino* currentTetromino, GameStatus* currentGameStatus, 
     srand((unsigned)time(NULL));
     SetTimer(hWnd, SPEED, SPEED, NULL);
 
-    for (i = 1; i < (PLAY_FIELD_HEIGHT_IN_BLOCKS - 1); i++)
+    for (i = 0; i < PLAY_FIELD_HEIGHT_IN_BLOCKS; i++) // 1; (PLAY_FIELD_HEIGHT_IN_BLOCKS - 1)
     {
-        for (j = 1; j < (PLAY_FIELD_WIDTH_IN_BLOCKS - 1); j++)
+        for (j = 0; j < PLAY_FIELD_WIDTH_IN_BLOCKS; j++) // 1; (PLAY_FIELD_WIDTH_IN_BLOCKS - 1)
         {
             playField[i][j] = EMPTY_BLOCK;
         }
