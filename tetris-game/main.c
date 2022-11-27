@@ -4,7 +4,7 @@
 #include "draw.h"
 #include "tetromino.h"
 
-GameStatus currentGameStatus;
+GameStatus currentGameStatus = GAME_OVER;
 Tetromino currentTetromino;
 int score;
 
@@ -18,19 +18,19 @@ BOOL keyProc(HWND hWnd, WPARAM wParam)
     switch (wParam)
     {
     case VK_RIGHT:
-        moveTetromino(currentTetromino, MOVE_TO_RIGHT);
+        moveTetromino(&currentTetromino, MOVE_TO_RIGHT);
         break;
     case VK_LEFT:
-        moveTetromino(currentTetromino, MOVE_TO_LEFT);
+        moveTetromino(&currentTetromino, MOVE_TO_LEFT);
         break;
     case VK_DOWN:
-        downTetromino(&currentGameStatus, &score);
+        downTetromino(&currentTetromino, &currentGameStatus, &score);
         break;
     case VK_UP:
-        rotateTetromino(currentTetromino, CLOCKWISE);
+        rotateTetromino(&currentTetromino, CLOCKWISE);
         break;
     case VK_SPACE:
-        rotateTetromino(currentTetromino, COUNTER_CLOCKWISE);
+        rotateTetromino(&currentTetromino, COUNTER_CLOCKWISE);
         break;
     case VK_ESCAPE:
     {
@@ -137,7 +137,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_COMMAND:
         if (LOWORD(wParam) == ID_BUTTON_START)
         {
-            initializeGame(&currentGameStatus, &score, hWnd);
+            initializeGame(&currentTetromino, &currentGameStatus, &score, hWnd);
             SetFocus(hWnd);
         }
         break;
@@ -157,7 +157,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         switch (currentGameStatus)
         {
         case PLAYING:
-            downTetromino(&currentGameStatus, &score);
+            downTetromino(&currentTetromino, &currentGameStatus, &score);
             updateScore(&score, hScore);
             break;
         case GAME_OVER:

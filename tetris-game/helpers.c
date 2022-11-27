@@ -3,7 +3,6 @@
 #include "entity.h"
 #include "helpers.h"
 
-extern Tetromino currentTetromino;
 extern int playField[PLAY_FIELD_HEIGHT_IN_BLOCKS][PLAY_FIELD_WIDTH_IN_BLOCKS];
 
 void updateScore(int* score, HWND hScore)
@@ -13,7 +12,7 @@ void updateScore(int* score, HWND hScore)
     SetWindowTextW(hScore, scoreString);
 }
 
-void initializeGame(GameStatus* currentGameStatus, int* score, HWND hWnd)
+void initializeGame(Tetromino* currentTetromino, GameStatus* currentGameStatus, int* score, HWND hWnd)
 {
     int i, j;
     *currentGameStatus = PLAYING;
@@ -40,5 +39,5 @@ void initializeGame(GameStatus* currentGameStatus, int* score, HWND hWnd)
         playField[PLAY_FIELD_HEIGHT_IN_BLOCKS - 1][j] = BOUNDARY_BLOCK;
     }
 
-    createTetromino((PLAY_FIELD_WIDTH_IN_BLOCKS / 2 - 2), 0, rand() % TETROMINO_TYPES);
+    createTetromino(currentTetromino, (PLAY_FIELD_WIDTH_IN_BLOCKS / 2 - 2), 0, rand() % TETROMINO_TYPES);
 }
