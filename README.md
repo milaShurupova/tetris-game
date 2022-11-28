@@ -17,7 +17,7 @@ Use the following keys to control the falling blocks:
 ![alt text](https://github.com/milaShurupova/tetris-game/blob/master/teris-game-gif.gif "Tetris game demonstration")
 
 ### Presentation
-(link to presentation)
+[Few slides about the game](https://www.slideshare.net/LiudmilaShurupova/tetrisgamepresentationforgithubpptx)
 
 ## Technologies
 - C
