@@ -5,10 +5,6 @@ This is my first project in C: game "Tetris" for Win32Api.
 
 ## About the game
 
-### Specifics
-- No change of speed
-- Bugs in rotations
-
 ### Control
 Use the following keys to control the falling blocks:  
 - <kbd>→</kbd> to move right
@@ -17,10 +13,10 @@ Use the following keys to control the falling blocks:
 - <kbd>↑</kbd> to rotate the falling block clockwise
 - <kbd>SPACE</kbd> to rotate the falling block counter clockwise
 
-## Demonstration
-(gif with demonstration)
+### Demonstration
+![alt text](https://github.com/milaShurupova/tetris-game/blob/master/teris-game-gif.gif "Tetris game demonstration")
 
-## Presentation
+### Presentation
 (link to presentation)
 
 ## Technologies
