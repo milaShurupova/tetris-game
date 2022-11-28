@@ -125,10 +125,10 @@ BOOL downTetromino(Tetromino* currentTetromino, GameStatus* currentGameStatus, i
 }
 
 
-BOOL rotateTetromino(Tetromino* t, RotateType type)
+BOOL rotateTetromino(Tetromino* currentTetromino, RotateType type)
 {
 	int i, j;
-	Tetromino next_t = *t;
+	Tetromino next_t = *currentTetromino;
 
 	if (type == CLOCKWISE)
 	{
@@ -136,7 +136,7 @@ BOOL rotateTetromino(Tetromino* t, RotateType type)
 		{
 			for (j = 0; j < TETROMINO_WIDTH; j++)
 			{
-				next_t.tetromino[i][j] = t->tetromino[TETROMINO_HEIGHT - 1 - j][i];
+				next_t.tetromino[i][j] = currentTetromino->tetromino[TETROMINO_HEIGHT - 1 - j][i];
 			}
 		}
 	}
@@ -146,19 +146,19 @@ BOOL rotateTetromino(Tetromino* t, RotateType type)
 		{
 			for (j = 0; j < TETROMINO_WIDTH; j++)
 			{
-				next_t.tetromino[i][j] = t->tetromino[j][TETROMINO_WIDTH - 1 - i];
+				next_t.tetromino[i][j] = currentTetromino->tetromino[j][TETROMINO_WIDTH - 1 - i];
 			}
 		}
 	}
 
-	removeTetromino(t);
+	removeTetromino(currentTetromino);
 
 	if (placeTetromino(&next_t) == FALSE)
 	{
-		placeTetromino(t);
+		placeTetromino(currentTetromino);
 		return FALSE;
 	}
 
-	*t = next_t;
+	*currentTetromino = next_t;
 	return TRUE;
 }
