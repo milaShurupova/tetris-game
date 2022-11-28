@@ -14,7 +14,7 @@ Use the following keys to control the falling blocks:
 - <kbd>SPACE</kbd> to rotate the falling block counter clockwise
 
 ### Demonstration
-![alt text](https://github.com/milaShurupova/tetris-game/blob/master/teris-game-gif.gif "Tetris game demonstration")
+![alt text](https://github.com/milaShurupova/tetris-game/blob/master/gif-tetris-game.gif "Tetris game demonstration")
 
 ### Presentation
 [Few slides about the game](https://www.slideshare.net/LiudmilaShurupova/tetrisgamepresentationforgithubpptx)
